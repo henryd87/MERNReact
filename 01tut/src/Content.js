@@ -1,33 +1,7 @@
 import React from 'react'
 import {FaTrashAlt} from 'react-icons/fa';
-import {useState} from 'react';
-export default function Content() {
-    const [items,setItems] = useState([{
-      id:1,
-      checked:false,
-      item:"One half pound bag of cocoa"
-    },
-  {
-    id:2,
-    checked:false,
-    item:"Item2"
-  },
-{
-  id:3,
-  checked:false,
-  item:"item 3"
-}]);
-  const handleCheck = (id) =>{
-    const listItems = items.map(
-      (item)=>item.id===id ? {...item,checked:!item.checked} : item);
-      setItems(listItems);
-      localStorage.setItem('shoppinglist',JSON.stringify(listItems));
-  }
-  const handleDelete = (id) =>{
-    const listItems = items.filter((item)=>item.id!==id);
-    setItems(listItems);
-      localStorage.setItem('shoppinglist',JSON.stringify(listItems));
-  }
+export default function Content({items,handleCheck,handleDelete}) {
+    
     
   return (
     //The ondoubleClick is used for clicking on the text and not buttons
@@ -41,8 +15,7 @@ export default function Content() {
             <label
             style={(item.checked) ? {textDecoration:'line-through'}:null}
             onDoubleClick = {()=>handleCheck(item.id)}
-            >{item.item}
-            </label>
+            >{item.item}</label>
             <FaTrashAlt role="button" onClick={()=>handleDelete(item.id)} tabIndex="0"/>
           </li>
         ))}
